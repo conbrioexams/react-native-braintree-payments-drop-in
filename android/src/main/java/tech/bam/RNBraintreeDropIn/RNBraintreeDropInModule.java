@@ -2,6 +2,7 @@ package tech.bam.RNBraintreeDropIn;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -17,6 +18,7 @@ import com.braintreepayments.api.dropin.DropInResult;
 import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.api.models.CardNonce;
 import com.braintreepayments.api.models.ThreeDSecureInfo;
+import com.braintreepayments.cardform.view.CardForm;
 
 public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
 
@@ -59,6 +61,16 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
       dropInRequest
       .amount(String.valueOf(threeDSecureOptions.getDouble("amount")))
       .requestThreeDSecureVerification(true);
+    }
+
+    if (options.hasKey("cardHolderName")) {
+      String cardHolderName = options.getString("cardHolderName");
+
+      if (cardHolderName.equals("optional")) {
+        dropInRequest.cardholderNameStatus(CardForm.FIELD_OPTIONAL);
+      } else if (cardHolderName.equals("required")) {
+        dropInRequest.cardholderNameStatus(CardForm.FIELD_REQUIRED);
+      }
     }
 
     mPromise = promise;
