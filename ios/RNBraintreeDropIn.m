@@ -31,13 +31,21 @@ RCT_REMAP_METHOD(show,
         request.amount = [threeDSecureAmount stringValue];
     }
     
-    NSString* cardHolderName = options[@"cardHolderName"];
-    if (cardHolderName) {
-        if ([cardHolderName isEqualToString:@"optional"]) {
+    NSString* cardholderName = options[@"cardholderName"];
+    if (cardholderName) {
+        if ([cardholderName isEqualToString:@"optional"]) {
             request.cardholderNameSetting = BTFormFieldOptional;
-        } else if ([cardHolderName isEqualToString:@"required"]) {
+        } else if ([cardholderName isEqualToString:@"required"]) {
             request.cardholderNameSetting = BTFormFieldRequired;
         }
+    }
+
+    if (options[@"disableCard"] != NULL) {
+        request.cardDisabled = [[options objectForKey:@"disableCard"] boolValue];
+    }
+    
+    if (options[@"disablePaypal"] != NULL) {
+        request.paypalDisabled = [[options objectForKey:@"disablePaypal"] boolValue];
     }
 
     BTDropInController *dropIn = [[BTDropInController alloc] initWithAuthorization:clientToken request:request handler:^(BTDropInController * _Nonnull controller, BTDropInResult * _Nullable result, NSError * _Nullable error) {

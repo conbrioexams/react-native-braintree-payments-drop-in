@@ -3,7 +3,9 @@ type ShowOptions = {|
   threeDSecure?: {|
     amount: number,
   |},
-  cardHolderName?: string
+  cardholderName?: string,
+  disableCard?: boolean,
+  disablePaypal?: boolean
 |};
 
 type ShowResult = {|

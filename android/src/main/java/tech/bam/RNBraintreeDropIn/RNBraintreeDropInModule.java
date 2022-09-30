@@ -63,13 +63,25 @@ public class RNBraintreeDropInModule extends ReactContextBaseJavaModule {
       .requestThreeDSecureVerification(true);
     }
 
-    if (options.hasKey("cardHolderName")) {
-      String cardHolderName = options.getString("cardHolderName");
+    if (options.hasKey("cardholderName")) {
+      String cardholderName = options.getString("cardholderName");
 
-      if (cardHolderName.equals("optional")) {
+      if (cardholderName.equals("optional")) {
         dropInRequest.cardholderNameStatus(CardForm.FIELD_OPTIONAL);
-      } else if (cardHolderName.equals("required")) {
+      } else if (cardholderName.equals("required")) {
         dropInRequest.cardholderNameStatus(CardForm.FIELD_REQUIRED);
+      }
+    }
+
+    if (options.hasKey("disableCard")) {
+      if (options.getBoolean("disableCard")) {
+        dropInRequest.disableCard();
+      }
+    }
+
+    if (options.hasKey("disablePaypal")) {
+      if (options.getBoolean("disablePaypal")) {
+        dropInRequest.disablePayPal();
       }
     }
 
