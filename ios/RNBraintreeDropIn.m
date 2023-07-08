@@ -27,8 +27,8 @@ RCT_REMAP_METHOD(show,
             return;
         }
 
-        request.threeDSecureVerification = YES;
-        request.amount = [threeDSecureAmount stringValue];
+//        request.threeDSecureVerification = YES;
+//        request.amount = [threeDSecureAmount stringValue];
     }
     
     NSString* cardholderName = options[@"cardholderName"];
@@ -53,7 +53,7 @@ RCT_REMAP_METHOD(show,
 
             if (error != nil) {
                 reject(error.localizedDescription, error.localizedDescription, error);
-            } else if (result.cancelled) {
+            } else if (result.canceled) {
                 reject(@"USER_CANCELLATION", @"The user cancelled", nil);
             } else {
                 if (threeDSecureOptions && [result.paymentMethod isKindOfClass:[BTCardNonce class]]) {
